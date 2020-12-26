@@ -1,5 +1,6 @@
 import tkinter as tk
 import json
+import encrypt
 
 f = open("data.txt", "r")
 temp_list = []
@@ -8,7 +9,7 @@ data = data.split()
 for i in range(len(data)//3):
     temp = []
     for j in range(3):
-        temp.append(data[i+j])
+        temp.append(encrypt.decode(data[i+j]))
     temp_list.append(temp)
 
 print(temp_list)
@@ -21,7 +22,7 @@ def add_new():
         return
     temp_list.append([e1.get(), e2.get(), e3.get()])
     f = open("data.txt", "a")
-    f.write(e1.get() + " " + e2.get() + " " + e3.get() + " ")
+    f.write(encrypt.encode(e1.get()) + " " + encrypt.encode(e2.get()) + " " + encrypt.encode(e3.get()) + " ")
     e1.delete(0, tk.END)
     e2.delete(0, tk.END)
     e3.delete(0, tk.END)
