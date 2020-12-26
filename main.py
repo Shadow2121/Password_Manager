@@ -1,6 +1,18 @@
 import tkinter as tk
+import json
 
+f = open("data.txt", "r")
 temp_list = []
+data = f.read()
+data = data.split()
+for i in range(len(data)//3):
+    temp = []
+    for j in range(3):
+        temp.append(data[i+j])
+    temp_list.append(temp)
+
+print(temp_list)
+
 
 def add_new():
     global e1,e2,e3,temp_list,wn
@@ -8,6 +20,8 @@ def add_new():
     if e2.get() == '' or e3.get() == '':
         return
     temp_list.append([e1.get(), e2.get(), e3.get()])
+    f = open("data.txt", "a")
+    f.write(e1.get() + " " + e2.get() + " " + e3.get() + " ")
     e1.delete(0, tk.END)
     e2.delete(0, tk.END)
     e3.delete(0, tk.END)
@@ -48,6 +62,12 @@ def new_win():
     l1.grid(row = 4, column = 0, columnspan = 2)
     l2.grid(row = 4, column = 2, columnspan = 2)
     l3.grid(row = 4, column = 4, columnspan = 2)
+
+    for i in range(len(temp_list)):
+        for j in range(3):
+            l1 = tk.Label(wn, text = temp_list[i][j])
+            l1.grid(row = (5+i), column = (j*2), )
+            l1.grid(row = (5+i), column = (j*2), columnspan = 2)
 
     wn.mainloop()
 
